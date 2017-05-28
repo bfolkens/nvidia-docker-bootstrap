@@ -2,6 +2,10 @@
 
 Provides a solution for the times when [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) isn't something that is available for use.  A good example of this is in AWS's ECS environment, where the docker containers are created without invoking the command line client.
 
+## Background
+
+This script was made as a result of the comments and revisions from the article [Deep Learning Image Recognition Using GPUs in Amazon ECS Docker Containers](https://blog.cloudsight.ai/deep-learning-image-recognition-using-gpus-in-amazon-ecs-docker-containers-5bdb1956f30e), and after several months of using these tweaks in production environments at [CloudSight](http://cloudsight.ai).
+
 ## Instructions
 
 Install the NVIDIA drivers into your docker host machine.  This might look a bit different depending on your distro, but in general will look something like this:
