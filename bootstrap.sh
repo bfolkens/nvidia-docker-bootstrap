@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 echo "Copy the NVidia drivers from the host"
 
 NV_LIBS=" \
