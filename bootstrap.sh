@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Copy the NVidia drivers from the host"
+echo "$(date): Copying the NVidia drivers from the host."
 
 NV_LIBS=" \
   libnvidia-ml.so \
@@ -41,8 +41,12 @@ NV_LIBS=" \
 
 new_library_paths=""
 
+prefix=usr
+librarylist=$(mktemp)
+trap "rm ${librarylist}" EXIT
+find /host${prefix} > ${librarylist}
+
 for filename in $NV_LIBS; do
-  prefix=usr
   while read path; do
     newpath="/${prefix}${path#/host${prefix}}"
 
@@ -55,12 +59,11 @@ for filename in $NV_LIBS; do
         new_library_paths="${libpath} ${new_library_paths}"
       fi
     fi
-  done < <(find /host${prefix} -name "${filename}*")
+  done < <(grep "${filename}*" ${librarylist})
 done
 
 
-echo "Reconfiguring ldcache"
+echo "$(date): Reconfiguring ldcache."
 
 echo "${new_library_paths}" | tr ' ' '\n' | sort -u > /etc/ld.so.conf.d/nvidia.conf
 ldconfig
-
