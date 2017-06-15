@@ -54,7 +54,8 @@ for filename in $NV_LIBS; do
       mkdir -p `dirname $newpath` && \
         cp -a $path $newpath
 
-      if [[ $newpath == */lib/* ]]; then
+      if [[ $newpath == */lib/* || $newpath == */lib32/* || \
+            $newpath == */lib64/* ]]; then
         libpath=$(dirname $newpath)
         new_library_paths="${libpath} ${new_library_paths}"
       fi
